@@ -11,6 +11,7 @@ from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix
+import joblib
 
 
 def parse_args():
@@ -61,6 +62,14 @@ def train_model(X_train, y_train, random_state):
     model.fit(X_train, y_train)
     print("Model trained successfully!")
     return model
+
+
+def save_model(model, output_dir="outputs"):
+    """Save the trained model to a file."""
+    os.makedirs(output_dir, exist_ok=True)
+    model_path = os.path.join(output_dir, "model.joblib")
+    joblib.dump(model, model_path)
+    print(f"Model saved to: {model_path}")
 
 
 def evaluate_model(model, X_test, y_test):
@@ -123,13 +132,16 @@ def main():
     # Train model
     model = train_model(X_train, y_train, args.random_state)
     
+    # Save model
+    save_model(model)
+    
     # Evaluate model
     accuracy, cm = evaluate_model(model, X_test, y_test)
     
     print("\n" + "=" * 60)
     print("TRAINING COMPLETED SUCCESSFULLY")
     print("=" * 60)
-
+    
 
 if __name__ == "__main__":
     main()
