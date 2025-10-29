@@ -1,2 +1,2 @@
 # iris-classifier
-Iris Classifier (Decision Tree)
+End‑to‑end Iris decision‑tree ML example for AI Fundamentals course assessment
